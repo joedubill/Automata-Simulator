@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DFA calculator</title>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css"/>
+    <link rel="stylesheet" href ="stylus.css"/>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script type = "text/javascript" src = "visual.js"></script>
+    <script type = "text/javascript" src = "parse.js"></script>
+    <script type = "text/javascript" src = "process.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class = "header">
+         <div class = "container">
+     <h1> Automata Simulator </h1>
+        <p> Visualize and test inputs on DFAs, Regex, NFAs, and Single Tape Turing Machines </p>
+    </div>
+</div>
+
+
+<div class = content>
+
+    <div class = "inp">
+        <strong style="font-size: xx-large">DFA Encoding:</strong>
+        <p> <strong> States: </strong> Enter as unique Integers separated by commas inside parenthesis:  <code> Q: (1,2,3) </code> </p>
+        <p> <strong> Alphabet:  </strong> Enter as unique symbols separated by commas inside parenthesis: <code> Σ: (a,b,c)</code>  </p>
+        <p><strong>Transition function: </strong> Use format {(x,y,z)} where x -> y is the transition from state x to y, when symbol z is read. Wrap all transitions in parenthesis and separate by commas: <code>   δ: {(1,2,a),(2,1,b),(1,1,b),(2,2,a)}</code> </p>
+        <p><strong>Start state: </strong> Enter a single state without parenthesis: <code>S: 1</code> </p>
+        <p><strong>Final States: </strong> Use format given for set of states. F should be a subset of Q. <code>F: (1,2)</code></p>
+        <form onsubmit="parseDFA(document.getElementById('states').value, document.getElementById('chars').value, document.getElementById('trans').value, document.getElementById('start').value,document.getElementById('finals').value); return false;">
+            <code style=" background-color: #ccc; color: #333333; font-size: large">Q:</code> <input type = "text" id = "states" value="(1,2,3,4)">
+            <code style="background-color: #ccc; color: #333333; font-size: large">Σ:</code> <input type = "text" id = "chars" value="(a,b,c)">
+            <code style="background-color: #ccc; color: #333333; font-size: large">δ:</code> <input type = "text" id = "trans" style="flex: auto; width: 250px"  value="{(1,2,a),(2,1,b),(1,1,b),(2,3,a),(3,4,b)}">
+            <code style="background-color: #ccc; color: #333333; font-size: large">S:</code> <input type = "text" id = "start" value="1">
+            <code style="background-color: #ccc; color: #333333; font-size: large">F:</code> <input type = "text" id = "finals" value="(1,2)">
+            <input type = submit value="Create DFA">
+        </form>
+        <div type = "text" id = "message"></div>
+    </div>
+
+    <div id = "wrapper">
+         <div id = "network"></div>
+         <div id = "calc">
+
+                <div>
+                  <strong style="font-size: xx-large">Run Input:</strong>
+                    <p> Enter a string ∈ Σ*  </p>
+                </div>
+
+                <div>
+                    <form onsubmit="runInput(document.getElementById('stringinput').value); return false;">
+                        <input type = "text" id = "stringinput">
+                        <input type="submit" value = "Process Input">
+                        <div type = "text" id = "Inputmessage"></div>
+                    </form>
+                </div>
+
+                <div id = outputs>
+                    <table id = "outputtable">
+                        <tr>
+                            <th>Input String:</th>
+                            <th>Accept or Reject</th>
+                        </tr>
+                    </table>
+                </div>
+
+         </div>
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
