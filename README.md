@@ -1,1 +1,1 @@
-requires vis.js, npm
+requires vis.js
